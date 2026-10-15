@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }} — Structural Design Kit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/pygments.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Structural Design Kit</h1>
+                <p class="subtitle">NBC + Indian Standards · Nepal profile</p>
+            </div>
+            <nav class="sidebar-nav">
+                {% for f in files %}
+                <a href="{{ url_for('view_doc', filename=f) }}"
+                   class="nav-link {{ 'active' if f == active else '' }}">
+                    {{ display_name(f) if f in DISPLAY_NAMES else f }}
+                </a>
+                {% endfor %}
+            </nav>
+        </aside>
+        <main class="content">
+            <article>
+                {{ content|safe }}
+            </article>
+        </main>
+    </div>
+</body>
+</html>
