@@ -8,26 +8,10 @@
     <link rel="stylesheet" href="/pygments.css">
 </head>
 <body>
-    <div class="layout">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1>Structural Design Kit</h1>
-                <p class="subtitle">NBC + Indian Standards · Nepal profile</p>
-            </div>
-            <nav class="sidebar-nav">
-                {% for f in files %}
-                <a href="{{ url_for('view_doc', filename=f) }}"
-                   class="nav-link {{ 'active' if f == active else '' }}">
-                    {{ display_name(f) if f in DISPLAY_NAMES else f }}
-                </a>
-                {% endfor %}
-            </nav>
-        </aside>
-        <main class="content">
-            <article>
-                {{ content|safe }}
-            </article>
-        </main>
-    </div>
+    <nav class="topnav">
+        <a href="/" class="{{ 'active' if request.path == '/' or request.path.startswith('/doc') }}">Documents</a>
+        <a href="/tasks" class="{{ 'active' if request.path.startswith('/tasks') }}">Tasks</a>
+    </nav>
+    {% block body %}{% endblock %}
 </body>
 </html>

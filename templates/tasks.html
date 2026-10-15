@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="task-page">
+    <div class="task-header">
+        <h1>Design Tasks</h1>
+        <a href="/tasks/new" class="btn btn-primary">+ New Task</a>
+    </div>
+    {% if tasks %}
+    <table class="task-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Project</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Progress</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in tasks %}
+            <tr>
+                <td><a href="/tasks/{{ t.id }}">{{ t.title }}</a></td>
+                <td>{{ t.project or '—' }}</td>
+                <td><span class="badge badge-{{ t.task_type }}">{{ t.task_type }}</span></td>
+                <td><span class="badge badge-{{ t.status }}">{{ t.status | replace('_', ' ') }}</span></td>
+                <td>{{ progress[t.id] }}</td>
+                <td class="muted">{{ t.created_at[:16] }}</td>
+                <td>
+                    <form method="POST" action="/tasks/{{ t.id }}/delete" onsubmit="return confirm('Delete this task?')">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>No tasks yet.</p>
+        <a href="/tasks/new" class="btn btn-primary">Create your first task</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 __pycache__/
 .pytest_cache/
 *.pyc
+data/
 
 # Project data and code PDFs stay out of this repo
 projects/
